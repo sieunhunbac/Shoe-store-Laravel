@@ -134,19 +134,21 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as $product) {
-            Product::create([
-                'category_id' => $product['category_id'],
-                'name' => $product['name'],
-                'slug' => Str::slug($product['name']),
-                'description' => $product['description'],
-                'price' => $product['price'],
-                'sale_price' => $product['sale_price'],
-                'stock' => $product['stock'],
-                'size' => '39,40,41,42,43',
-                'color' => $product['color'],
-                'status' => 'active',
-                'image' => null, // Will use unsplash URL via accessor
-            ]);
+            Product::updateOrCreate(
+                ['slug' => Str::slug($product['name'])],
+                [
+                    'category_id' => $product['category_id'],
+                    'name' => $product['name'],
+                    'description' => $product['description'],
+                    'price' => $product['price'],
+                    'sale_price' => $product['sale_price'],
+                    'stock' => $product['stock'],
+                    'size' => '39,40,41,42,43',
+                    'color' => $product['color'],
+                    'status' => 'active',
+                    'image' => null, // Will use unsplash URL via accessor
+                ]
+            );
         }
     }
 }
